@@ -15,7 +15,6 @@ C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Index.razor.g.cs
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\NavMenu.razor.g.cs
-C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\SurveyPrompt.razor.g.cs
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\RazorDeclaration\_Imports.razor.g.cs
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Athena.TagHelpers.input.cache
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Athena.TagHelpers.output.cache
@@ -81,8 +80,11 @@ C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Razor\Pages\Error.razo
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Razor\Pages\Index.razor.g.cs
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Razor\Shared\MainLayout.razor.g.cs
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Razor\Shared\NavMenu.razor.g.cs
-C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Razor\Shared\SurveyPrompt.razor.g.cs
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Razor\_Imports.razor.g.cs
 C:\Users\User\source\repos\Athena\bin\Debug\netcoreapp3.1\Athena.StaticWebAssets.xml
 C:\Users\User\source\repos\Athena\bin\Debug\netcoreapp3.1\BlazorContextMenu.dll
 C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Athena.csprojAssemblyReference.cache
+C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Tasks.razor.g.cs
+C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Razor\Pages\Tasks.razor.g.cs
+C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Important.razor.g.cs
+C:\Users\User\source\repos\Athena\obj\Debug\netcoreapp3.1\Razor\Pages\Important.razor.g.cs

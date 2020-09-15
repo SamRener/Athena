@@ -20,5 +20,18 @@ namespace Athena.Database.Models
         internal int? ToDoList_Id { get; set; }
 
         public virtual ToDoList ToDoList { get; set; }
+
+        public string ExtenseDeadLine(DateTime data)
+        {
+            var Today = DateTime.Today;
+            var Tomorrow = DateTime.Today.AddDays(1);
+
+            if (data.Date == Today) return "Hoje";
+            else if (data.Date == Tomorrow) return "Amanhã";
+            else
+            {
+                return data.ToLongDateString();
+            }
+        }
     }
 }
