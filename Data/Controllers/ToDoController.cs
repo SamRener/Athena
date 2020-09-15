@@ -24,13 +24,21 @@ namespace Athena.Database.Controllers
         {
             return ctx.ToDo.Where(x => x.Date.Date == DateTime.Now.Date).ToList();
         }
-
+        public List<ToDo> GetAll(bool all)
+        {
+            return ctx.ToDo.ToList();
+        }
         public Exception Insert(ToDo todo)
         {
             ctx.ToDo.Add(todo);
             ctx.SaveChanges();
 
             return null;
+        }
+
+        internal List<ToDo> GetAll(Func<ToDo, bool> predicate)
+        {
+            return ctx.ToDo.Where(predicate).ToList();
         }
 
         public bool HandleFinished(int Codigo)
@@ -56,6 +64,15 @@ namespace Athena.Database.Controllers
                 return ToDo.Important;
             }
             return false;
+        }
+        public void HandleDeadline(int Codigo, DateTime date)
+        {
+            var ToDo = ctx.ToDo.Find(Codigo);
+            if (ToDo != null)
+            {
+                ToDo.DeadLine = date;
+                ctx.SaveChanges();
+            }
         }
 
         public Exception Delete(ToDo toDo)

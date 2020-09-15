@@ -18,7 +18,7 @@
 .athena-list {
     margin-bottom: 15px;
     overflow: auto;
-    height: 80vh;
+    height: 75vh;
 }
 
 .athena-add-input {
@@ -84,7 +84,22 @@ body {
 .custom-control-input ~ .custom-control-label::before {
     border-radius: 100px;
 }
+.at-star {
+    visibility: hidden;
+    font-size: 30px;
+    cursor: pointer;
+}
 
+    .at-star:before {
+        content: "\2605";
+        position: absolute;
+        visibility: visible;
+    }
+
+    .at-star:checked:before {
+        content: "\2606";
+        position: absolute;
+    }
 .athena-dia-list-group {
     background-color: white;
     border-radius: 3px;

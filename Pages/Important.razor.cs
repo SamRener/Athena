@@ -1,5 +1,6 @@
 ﻿using Athena.Database.Controllers;
 using Athena.Database.Models;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace Athena.Pages
 {
-    public partial class Index
+    public partial class Important
     {
+        [Inject]
+        Microsoft.Extensions.Configuration.IConfiguration config { get; set; }
+        [Inject]
+        Microsoft.AspNetCore.Hosting.IWebHostEnvironment _env { get; set; }
         private List<ToDo> Tarefas { get; set; }
         private ToDoController toDoController { get; set; }
 
@@ -20,20 +25,22 @@ namespace Athena.Pages
                 new System.Media.SoundPlayer(_env.WebRootPath + "\\sounds\\plim.wav").Play();
             }
             Tarefas = new List<ToDo>();
-            Tarefas = toDoController.GetAll();
+            Tarefas = toDoController.GetAll(x => x.Important);
 
         }
         void HandleImportant(int Codigo)
         {
             toDoController.HandleImportant(Codigo);
             Tarefas = new List<ToDo>();
-            Tarefas = toDoController.GetAll();
+            Tarefas = toDoController.GetAll(x => x.Important);
+
         }
         void HandleDeadLine(int codigo, DateTime date)
         {
             toDoController.HandleDeadline(codigo, date);
             Tarefas = new List<ToDo>();
-            Tarefas = toDoController.GetAll();
+            Tarefas = toDoController.GetAll(x => x.Important);
+
         }
         string DataAtual()
         {
@@ -50,12 +57,14 @@ namespace Athena.Pages
         {
             toDoController.Insert(new ToDo { Description = TarefaAtual, User_ObjectId = "" });
             TarefaAtual = "";
-            Tarefas = toDoController.GetAll();
+            Tarefas = toDoController.GetAll(x => x.Important);
+
         }
         void Delete(ToDo toDo)
         {
             toDoController.Delete(toDo);
-            Tarefas = toDoController.GetAll();
+            Tarefas = toDoController.GetAll(x => x.Important);
+
         }
 
     }
