@@ -1,20 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\source\\repos\\Athena\\Athena.csproj": {}
+    "C:\\Users\\samuel.rener\\Documents\\Samuel\\Athena\\Athena.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\source\\repos\\Athena\\Athena.csproj": {
+    "C:\\Users\\samuel.rener\\Documents\\Samuel\\Athena\\Athena.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\Athena\\Athena.csproj",
+        "projectUniqueName": "C:\\Users\\samuel.rener\\Documents\\Samuel\\Athena\\Athena.csproj",
         "projectName": "Athena",
-        "projectPath": "C:\\Users\\User\\source\\repos\\Athena\\Athena.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\Athena\\obj\\",
+        "projectPath": "C:\\Users\\samuel.rener\\Documents\\Samuel\\Athena\\Athena.csproj",
+        "packagesPath": "C:\\Users\\samuel.rener\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\samuel.rener\\Documents\\Samuel\\Athena\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\DevExpress 24.1\\Components\\Offline Packages",
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\samuel.rener\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 24.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,10 +28,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files\\DevExpress 24.1\\Components\\System\\Components\\Packages": {},
+          "C:\\publish": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/R8Mb5mKXoqHPHH2oUqSOZdJ4chAqwGytp6FSwHbkqeI2QKQ7sL/api/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -33,10 +43,17 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Blazor.ContextMenu": {
               "target": "Package",
@@ -53,7 +70,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -65,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
         }
       }
     }
