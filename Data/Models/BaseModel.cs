@@ -1,22 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Athena.Data.Models
+namespace Athena.Data.Models;
+
+public class BaseModel
 {
-    public class BaseModel
+    [Required] [Key]
+    public int Id { get; set; }
+
+    [Required]
+    public DateTime Date { get; set; }
+
+    public BaseModel()
     {
-        [Required] [Key]
-        public int Id { get; set; }
-        
-        [Required]
-        public string User_ObjectId { get; set; }
-
-        [Required]
-        public DateTime Date { get; set; }
-
-        public BaseModel()
-        {
-            Date = DateTime.Now;
-        }
+        Date = DateTime.Now;
     }
 }

@@ -1,4 +1,4 @@
-﻿using Athena.Database.Models;
+﻿using Athena.Data.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -10,77 +10,76 @@ using System.Media;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
-namespace Athena.Database.Controllers
+namespace Athena.Database.Controllers;
+
+public class ToDoController
 {
-    public class ToDoController
+    AthenaContext ctx { get; set; }
+
+    public ToDoController(IConfiguration config)
     {
-        AthenaContext ctx { get; set; }
+        ctx = new AthenaContext();
+    }
+    public List<ToDo> GetAll()
+    {
+        return ctx.ToDo.Where(x => x.Date.Date == DateTime.Now.Date).ToList();
+    }
+    public List<ToDo> GetAll(bool all)
+    {
+        return ctx.ToDo.ToList();
+    }
+    public Exception Insert(ToDo todo)
+    {
+        ctx.ToDo.Add(todo);
+        ctx.SaveChanges();
 
-        public ToDoController(IConfiguration config)
+        return null;
+    }
+
+    internal List<ToDo> GetAll(Func<ToDo, bool> predicate)
+    {
+        return ctx.ToDo.Where(predicate).ToList();
+    }
+
+    public bool HandleFinished(int Codigo)
+    {
+        var ToDo = ctx.ToDo.Find(Codigo);
+        if(ToDo != null)
         {
-            ctx = new AthenaContext(config);
-        }
-        public List<ToDo> GetAll()
-        {
-            return ctx.ToDo.Where(x => x.Date.Date == DateTime.Now.Date).ToList();
-        }
-        public List<ToDo> GetAll(bool all)
-        {
-            return ctx.ToDo.ToList();
-        }
-        public Exception Insert(ToDo todo)
-        {
-            ctx.ToDo.Add(todo);
+            ToDo.Finished = !ToDo.Finished;
             ctx.SaveChanges();
 
-            return null;
+            return ToDo.Finished;
         }
-
-        internal List<ToDo> GetAll(Func<ToDo, bool> predicate)
+        return false;
+    }
+    public bool HandleImportant(int Codigo)
+    {
+        var ToDo = ctx.ToDo.Find(Codigo);
+        if (ToDo != null)
         {
-            return ctx.ToDo.Where(predicate).ToList();
-        }
-
-        public bool HandleFinished(int Codigo)
-        {
-            var ToDo = ctx.ToDo.Find(Codigo);
-            if(ToDo != null)
-            {
-                ToDo.Finished = !ToDo.Finished;
-                ctx.SaveChanges();
-
-                return ToDo.Finished;
-            }
-            return false;
-        }
-        public bool HandleImportant(int Codigo)
-        {
-            var ToDo = ctx.ToDo.Find(Codigo);
-            if (ToDo != null)
-            {
-                ToDo.Important = !ToDo.Important;
-                ctx.SaveChanges();
-
-                return ToDo.Important;
-            }
-            return false;
-        }
-        public void HandleDeadline(int Codigo, DateTime date)
-        {
-            var ToDo = ctx.ToDo.Find(Codigo);
-            if (ToDo != null)
-            {
-                ToDo.DeadLine = date;
-                ctx.SaveChanges();
-            }
-        }
-
-        public Exception Delete(ToDo toDo)
-        {
-            ctx.ToDo.Remove(toDo);
+            ToDo.Important = !ToDo.Important;
             ctx.SaveChanges();
 
-            return null;
+            return ToDo.Important;
         }
+        return false;
+    }
+    public void HandleDeadline(int Codigo, DateTime date)
+    {
+        var ToDo = ctx.ToDo.Find(Codigo);
+        if (ToDo != null)
+        {
+            ToDo.DeadLine = date;
+            ctx.SaveChanges();
+        }
+    }
+
+    public Exception Delete(ToDo toDo)
+    {
+        ctx.ToDo.Remove(toDo);
+        ctx.SaveChanges();
+
+        return null;
     }
 }
