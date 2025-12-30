@@ -10,16 +10,11 @@ using System.Media;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
-namespace Athena.Database.Controllers;
+namespace Athena.Presentation.Controllers;
 
-public class ToDoController
+public class ToDoController()
 {
     AthenaContext ctx { get; set; }
-
-    public ToDoController(IConfiguration config)
-    {
-        ctx = new AthenaContext();
-    }
     public List<ToDo> GetAll()
     {
         return ctx.ToDo.Where(x => x.Date.Date == DateTime.Now.Date).ToList();

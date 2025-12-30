@@ -1,4 +1,4 @@
-using Athena.Database.Controllers;
+using Athena.Presentation.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="./src/Athena.Domain/Athena.Domain.csproj" />
+  <Project Path="./src/Athena.Application/Athena.Application.csproj" />
+  <Project Path="./src/Athena.Infrastructure/Athena.Infrastructure.csproj" />
+  <Project Path="./src/Athena.Presentation/Athena.Presentation.csproj" />
+</Solution>

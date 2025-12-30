@@ -1,39 +1,46 @@
 ﻿using Athena.Data.Models;
-using Athena.Database.Controllers;
+using Athena.Presentation.Controllers;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Athena.Pages;
 
-public partial class Index(IJSRuntime Js)
+public partial class Important(IJSRuntime Js)
 {
+    [Inject]
+    Microsoft.Extensions.Configuration.IConfiguration config { get; set; }
+    [Inject]
+    Microsoft.AspNetCore.Hosting.IWebHostEnvironment _env { get; set; }
     private List<ToDo> Tarefas { get; set; }
     private ToDoController toDoController { get; set; }
 
     void HandleFinished(int Codigo)
     {
         if (toDoController.HandleFinished(Codigo))
-            Js.InvokeVoidAsync("playSound", "\\sounds\\plim.wav");
+        {
+                        Js.InvokeVoidAsync("playSound", "\\sounds\\plim.wav");
 
-        Tarefas = [];
-        Tarefas = toDoController.GetAll();
+        }
+        Tarefas = new List<ToDo>();
+        Tarefas = toDoController.GetAll(x => x.Important);
 
     }
     void HandleImportant(int Codigo)
     {
         toDoController.HandleImportant(Codigo);
         Tarefas = new List<ToDo>();
-        Tarefas = toDoController.GetAll();
+        Tarefas = toDoController.GetAll(x => x.Important);
+
     }
     void HandleDeadLine(int codigo, DateTime date)
     {
         toDoController.HandleDeadline(codigo, date);
         Tarefas = new List<ToDo>();
-        Tarefas = toDoController.GetAll();
+        Tarefas = toDoController.GetAll(x => x.Important);
+
     }
     string DataAtual()
     {
@@ -50,12 +57,14 @@ public partial class Index(IJSRuntime Js)
     {
         toDoController.Insert(new ToDo { Description = TarefaAtual });
         TarefaAtual = "";
-        Tarefas = toDoController.GetAll();
+        Tarefas = toDoController.GetAll(x => x.Important);
+
     }
     void Delete(ToDo toDo)
     {
         toDoController.Delete(toDo);
-        Tarefas = toDoController.GetAll();
+        Tarefas = toDoController.GetAll(x => x.Important);
+
     }
 
 }
