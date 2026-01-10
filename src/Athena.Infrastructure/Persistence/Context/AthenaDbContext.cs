@@ -1,9 +1,10 @@
 ﻿using Athena.Domain.Entities;
+using Athena.Domain.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Athena.Infrastructure.Persistence.Context;
 
-public class AthenaDbContext : DbContext
+public class AthenaDbContext : DbContext, IAthenaDbContext
 {
     public virtual DbSet<ToDo> ToDo { get; set; }
 

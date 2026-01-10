@@ -1,15 +1,14 @@
-using Athena.Presentation.Controllers;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SRenerCq;
 
 var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<ToDoController>();
 builder.Services.AddBlazorContextMenu();
+builder.Services.AddSRenerCq();
 
 var app = builder.Build();
 

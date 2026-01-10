@@ -1,19 +1,24 @@
 ﻿namespace Athena.Domain.Entities;
 
-public class ToDo
+public record ToDo
 {
     public ToDo()
     {
         CreatedAt = DateTime.Now;
     }
 
+    public ToDo(string description) : base()
+    {
+        Description = description;
+    }
+    
     public int Id { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
     public bool Finished { get; set; }
 
-    public required string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     public bool Important { get; set; }
 
