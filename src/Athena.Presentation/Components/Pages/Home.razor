@@ -1,0 +1,227 @@
+﻿@page "/"
+
+@using System.Globalization
+@using Athena.Application.Commands
+@using Athena.Application.Queries
+@using Athena.Domain.Entities
+@using Athena.Domain.Persistence.Context
+@using BlazorContextMenu
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.Extensions.Logging
+@using SRenerCq
+@using System.Text.Json
+
+@inject IAthenaDbContext Context;
+@inject ISender Sender
+@inject IJSRuntime Js
+@inject ILogger<Home> Logger
+
+<div class="athena-dia-background">
+    <h3 class="athena-title"><i class="far fa-star"></i> Importantes</h3>
+    <h6 class="athena-subtitle">@GetCurrentDate()</h6>
+    <div class="athena-list">
+        @if (ToDos != null)
+        {
+            <ul class="list-group list-group-flush">
+                @foreach (var toDo in ToDos.Where(x => !x.Finished).OrderByDescending(x => x.Important))
+                {
+                    <li class="athena-dia-list-group list-group-item list-group-item-action" style="border-radius: 4px;">
+
+                        <ContextMenuTrigger MenuId="menuToDo" Data="toDo">
+
+                            <div class="custom-control custom-checkbox">
+                                <input type="radio" id="ToDoItem_@toDo.Id" @onclick="@(e => HandleFinished(toDo.Id))"
+                                    name="ToDoItem_@toDo.Id" class="custom-control-input" checked="@toDo.Finished">
+                                <label class="custom-control-label" for="ToDoItem_@toDo.Id">@toDo.Description</label>
+                                @if (toDo.DeadLine.HasValue)
+                                {
+                                    <label>
+                                        &bull;
+                                        <i class="far fa-calendar"></i> @toDo.DeadLine.Value.Extense()
+                                    </label>
+                                }
+
+                                @if (toDo.Important)
+                                {
+                                    <i class="fas fa-star" @onclick="@(e => HandleImportant(toDo.Id))"></i>
+                                }
+                                else
+                                {
+                                    <i class="far fa-star" @onclick="@(e => HandleImportant(toDo.Id))"></i>
+                                }
+                            </div>
+                        </ContextMenuTrigger>
+                    </li>
+                }
+            </ul>
+            if (ToDos.Any(x => x.Finished))
+            {
+                <a class="btn athena-dia-finished-button btn-sm" href="javascript:;"
+                    @onclick="@(e => ShowFinished = !ShowFinished)">
+                    @if (ShowFinished)
+                    {
+
+                        <i class="fas fa-chevron-down"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-chevron-right"></i>
+                    }
+                    Concluída
+                </a>
+                @if (ShowFinished)
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var toDo in ToDos.Where(x => x.Finished).OrderByDescending(x => x.Important))
+                        {
+                            <li class="athena-dia-list-group list-group-item list-group-item-action" style="border-radius: 4px;">
+                                <ContextMenuTrigger MenuId="menuToDo" Data="toDo">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" id="ToDoItem_@toDo.Id" @onclick="@(e => HandleFinished(toDo.Id))"
+                                            name="ToDoItem_@toDo.Id" class="custom-control-input" checked="@toDo.Finished">
+                                        <label class="custom-control-label" for="ToDoItem_@toDo.Id">@toDo.Description</label>
+                                        @if (toDo.DeadLine.HasValue)
+                                        {
+                                            <label>
+                                                &bull;
+                                                <i class="far fa-calendar"></i> @toDo.DeadLine.Value.Extense()
+                                            </label>
+                                        }
+
+                                        @if (toDo.Important)
+                                        {
+                                            <i class="fas fa-star" @onclick="@(e => HandleImportant(toDo.Id))"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-star" @onclick="@(e => HandleImportant(toDo.Id))"></i>
+                                        }
+                                    </div>
+                                </ContextMenuTrigger>
+                            </li>
+                        }
+                    </ul>
+                }
+            }
+        }
+    </div>
+    <div class="container athena-workspace">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="athena-add-input input-group-text">
+                    <i class="fas fa-plus"></i>
+                </span>
+            </div>
+            <input class="form-control athena-add-input" placeholder="Adicionar uma Tarefa" @bind="CurrentToDo"
+                @bind:event="oninput" @onkeydown="HandleKeyPress" />
+        </div>
+    </div>
+
+</div>
+
+<ContextMenu Id="menuToDo">
+    <Item><i class="fas fa-unlink"></i>Remover de Meu Dia</Item>
+    <Item OnClick="@(e => HandleImportant((e.Data as ToDo).Id))">
+        <i class="far fa-star"></i> Marcar como Importante
+    </Item>
+    <Item OnClick="@(e => HandleFinished((e.Data as ToDo).Id))"><i class="far fa-check-circle"></i> Marcar como
+        Concluída</Item>
+    <Seperator></Seperator>
+    <Item OnClick="@(e => HandleDeadLine((e.Data as ToDo).Id, DateTime.Now))"><i class="far fa-calendar-check"></i>
+        Concluir hoje</Item>
+    <Item OnClick="@(e => HandleDeadLine((e.Data as ToDo).Id, DateTime.Now.AddDays(1)))"><i
+            class="far fa-calendar-minus"></i> Concluir Amanhã</Item>
+    <Item><i class="far fa-calendar-alt"></i> Escolher uma data</Item>
+    <Seperator></Seperator>
+    <Item><i class="fas fa-tasks"></i> Mover Tarefa Para...</Item>
+    <Item OnClick="@(e => Delete(e.Data as ToDo))">
+        <div style="color: red"><i class="far fa-trash-alt"></i> Excluir Tarefa</div>
+    </Item>
+</ContextMenu>
+
+<ContextMenu Id="menuData">
+
+</ContextMenu>
+
+@code {
+    IEnumerable<ToDo> ToDos { get; set; }
+    bool ShowFinished = true;
+    string CurrentToDo { get; set; }
+    ListType ListType { get { return ListType.All; } }
+
+    protected override async void OnInitialized()
+    {
+        await LoadToDos();
+    }
+
+    async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter") await AddToDo();
+    }
+
+    async Task LoadToDos()
+    {
+        Logger.LogInformation("Searching for ToDos!");
+        GetToDosQuery query = new(ListType);
+
+        ToDos = await Sender.Query(query);
+        Logger.LogInformation("Todo Search Complete");
+        
+    }
+    async Task HandleFinished(int toDoCode)
+    {
+        ToggleCompletionCommand cmd = new(toDoCode);
+        var result = await Sender.Command(cmd);
+
+        if (result.IsSuccess)
+        {
+            Js.InvokeVoidAsync("playSound", "\\sounds\\plim.wav");
+        }
+
+        await LoadToDos();
+
+    }
+    async Task HandleImportant(int toDoCode)
+    {
+        ToggleImportanceCommand cmd = new(toDoCode);
+        var result = await Sender.Command(cmd);
+
+        await LoadToDos();
+    }
+    async Task HandleDeadLine(int toDoCode, DateTime deadLine)
+    {
+        AddDeadLineToToDoCommand cmd = new(toDoCode, deadLine);
+        var result = await Sender.Command(cmd);
+
+        await LoadToDos();
+    }
+    async Task AddToDo()
+    {
+        AddToDoCommand cmd = new(new(CurrentToDo));
+
+        await Sender.Command(cmd);
+
+        CurrentToDo = string.Empty;
+
+        await LoadToDos();
+    }
+    async Task Delete(ToDo toDo)
+    {
+        DeleteToDoCommand cmd = new(toDo);
+        await Sender.Command(cmd);
+
+        await LoadToDos();
+    }
+
+    static string GetCurrentDate()
+    {
+        CultureInfo culture = new("pt-BR");
+        DateTimeFormatInfo dtfi = culture.DateTimeFormat;
+
+        int day = DateTime.Now.Day;
+        int year = DateTime.Now.Year;
+        string month = culture.TextInfo.ToTitleCase(dtfi.GetMonthName(DateTime.Now.Month));
+        string dayOfWeek = culture.TextInfo.ToTitleCase(dtfi.GetDayName(DateTime.Now.DayOfWeek));
+        return dayOfWeek + ", " + day + " de " + month + " de " + year;
+    }
+}

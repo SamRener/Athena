@@ -24,6 +24,7 @@
 .athena-add-input {
     background-color: #586cb7;
     border-color: #586cb7;
+    border-radius: 0;
     color: white;
     font-family: 'Kumbh Sans', sans-serif;
 }

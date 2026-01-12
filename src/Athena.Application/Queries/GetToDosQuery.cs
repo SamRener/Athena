@@ -1,5 +1,6 @@
 ﻿using Athena.Domain.Entities;
 using Athena.Domain.Persistence.Context;
+using Microsoft.Extensions.Logging;
 using SRenerCq;
 
 namespace Athena.Application.Queries;
@@ -11,18 +12,11 @@ public class GetToDosQueryHandler(IAthenaDbContext Context) : IQueryHandler<GetT
     public async Task<IEnumerable<ToDo>> Handle(GetToDosQuery query, CancellationToken cancellationToken)
     {
 
-        if (query.Type == ListType.All)
-            return Context.ToDo;
-
-        Func<ToDo, bool> predicate;
-
-        switch (query.Type)
+        return query.Type switch
         {
-            case ListType.Important: predicate = new(x => x.Important); break;
-            case ListType.Today:
-            default: predicate = new(x => x.CreatedAt.Date == DateTime.Now.Date); break;
-        }
-
-        return Context.ToDo.Where(predicate);
+            ListType.Important => Context.ToDo.Where(x => x.Important),
+            ListType.Today => Context.ToDo.Where(x => x.CreatedAt.Date == DateTime.Now.Date),
+            _ => Context.ToDo
+        };
     }
 }

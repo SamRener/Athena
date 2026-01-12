@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Athena.Domain;
+namespace Athena.Application;
 
 public static class DiExtensions
 {
     extension(IServiceCollection services)
     {
-        public IServiceCollection AddDomain()
+        public IServiceCollection AddApplication()
         {
             return services;
         }

@@ -35,6 +35,4 @@ public class AthenaDbContext : DbContext, IAthenaDbContext
         .IsRequired();
     }
 
-
-    
 }
