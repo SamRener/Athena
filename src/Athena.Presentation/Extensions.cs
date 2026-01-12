@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Humanizer;
 
 public static class Extensions
@@ -7,7 +8,7 @@ public static class Extensions
     {
         public string Extense()
         {
-            return date.Humanize();
+            return date.Humanize(culture : new CultureInfo("pt-BR"));
         }
     }
 

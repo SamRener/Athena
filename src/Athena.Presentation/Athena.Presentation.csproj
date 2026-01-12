@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Blazor.ContextMenu" Version="2.1.0" />
-    <PackageReference Include="Humanizer" Version="3.0.1" />
+    <PackageReference Include="Humanizer.Core.pt-BR" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

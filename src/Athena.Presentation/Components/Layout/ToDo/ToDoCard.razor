@@ -1,0 +1,28 @@
+@using Athena.Domain.Entities
+@using BlazorContextMenu
+<li class="athena-dia-list-group list-group-item list-group-item-action" style="border-radius: 4px;">
+
+    <ContextMenuTrigger MenuId="menuToDo" Data="ToDo">
+
+        <div class="custom-control custom-checkbox">
+            <input type="radio" id="ToDoItem_@ToDo.Id" @onclick="@(async _ => await OnFinish.InvokeAsync(ToDo.Id))"
+                   name="ToDoItem_@ToDo.Id" class="custom-control-input" checked="@ToDo.Finished">
+            <label class="custom-control-label" for="ToDoItem_@ToDo.Id">@ToDo.Description</label>
+            @if (ToDo.DeadLine.HasValue)
+            {
+                <label>
+                    &bull;
+                    <i class="far fa-calendar"></i> @ToDo.DeadLine.Value.Extense()
+                </label>
+            }
+
+            <i class='@(ToDo.Important ? "fas" : "far") fa-star' @onclick="@(async _ => await OnImportantize.InvokeAsync(ToDo.Id))"></i>
+        </div>
+    </ContextMenuTrigger>
+</li>
+
+@code{
+    [Parameter] public ToDo? ToDo { get; set; }
+    [Parameter] public EventCallback<int> OnImportantize { get; set; }
+    [Parameter] public EventCallback<int> OnFinish { get; set; }
+}
