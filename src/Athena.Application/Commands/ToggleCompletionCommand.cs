@@ -6,13 +6,13 @@ using SRenerCq;
 
 namespace Athena.Application.Commands;
 
-public record ToggleCompletionCommand(int ToDoCode) : ICommand<Result>;
+public record ToggleCompletionCommand(Guid Key) : ICommand<Result>;
 
 public class ToggleCompletionCommandHandler(IAthenaDbContext Context, ISender Sender) : ICommandHandler<ToggleCompletionCommand, Result>
 {
     public async Task<Result> Handle(ToggleCompletionCommand command, CancellationToken cancellationToken)
     {
-        var result = await Sender.Query(new GetToDoByKeyQuery(command.ToDoCode));
+        var result = await Sender.Query(new GetToDoByKeyQuery(command.Key));
         if (result.IsFailure)
             return result.Error!;
 

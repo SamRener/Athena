@@ -19,6 +19,10 @@ public class AthenaDbContext : DbContext, IAthenaDbContext
 
         modelBuilder.Entity<ToDo>().HasKey(x => x.Id);
         modelBuilder.Entity<ToDo>()
+        .Property(x => x.Id)
+        .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<ToDo>()
         .Property(x => x.CreatedAt)
         .IsRequired();
 

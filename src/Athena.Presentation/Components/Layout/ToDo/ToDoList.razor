@@ -1,0 +1,14 @@
+@using Athena.Domain.Entities
+<ul class="list-group list-group-flush">
+    @foreach (var toDo in ToDos.Where(x => x.Finished == OnlyFinished).OrderByDescending(x => x.Important))
+    {
+        <ToDoCard ToDo="toDo" OnFinish="OnFinish" OnImportantize="OnImportantize"></ToDoCard>
+    }
+</ul>
+
+@code{
+    [Parameter] public IEnumerable<ToDo> ToDos { get; set; } = [];
+    [Parameter] public bool OnlyFinished { get; set; }
+    [Parameter] public EventCallback<Guid> OnImportantize { get; set; }
+    [Parameter] public EventCallback<Guid> OnFinish { get; set; }
+}

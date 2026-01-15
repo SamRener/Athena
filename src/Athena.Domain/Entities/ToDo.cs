@@ -7,12 +7,12 @@ public record ToDo
         CreatedAt = DateTime.Now;
     }
 
-    public ToDo(string description) : base()
+    public ToDo(string description)
     {
         Description = description;
     }
-    
-    public int Id { get; set; }
+
+    public Guid Id { get; set; } = Guid.Empty;
 
     public DateTime CreatedAt { get; set; }
 

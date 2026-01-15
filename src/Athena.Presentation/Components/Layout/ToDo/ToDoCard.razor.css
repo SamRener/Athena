@@ -1,0 +1,13 @@
+.right{
+    float: right;
+    text-align: end;
+}
+
+.far.importantize{
+    cursor: pointer;
+    color: #8b8b8b;
+}
+
+.far.importantize:hover{
+    color: #000;
+}

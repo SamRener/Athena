@@ -10,19 +10,22 @@
             <label class="custom-control-label" for="ToDoItem_@ToDo.Id">@ToDo.Description</label>
             @if (ToDo.DeadLine.HasValue)
             {
+                
                 <label>
+                    &nbsp;
                     &bull;
+                    &nbsp;
                     <i class="far fa-calendar"></i> @ToDo.DeadLine.Value.Extense()
                 </label>
             }
-
-            <i class='@(ToDo.Important ? "fas" : "far") fa-star' @onclick="@(async _ => await OnImportantize.InvokeAsync(ToDo.Id))"></i>
+            &nbsp;
+            <i class='@(ToDo.Important ? "fas" : "far") fa-star importantize right' @onclick="@(async _ => await OnImportantize.InvokeAsync(ToDo.Id))"></i>
         </div>
     </ContextMenuTrigger>
 </li>
 
 @code{
     [Parameter] public ToDo? ToDo { get; set; }
-    [Parameter] public EventCallback<int> OnImportantize { get; set; }
-    [Parameter] public EventCallback<int> OnFinish { get; set; }
+    [Parameter] public EventCallback<Guid> OnImportantize { get; set; }
+    [Parameter] public EventCallback<Guid> OnFinish { get; set; }
 }
