@@ -10,13 +10,13 @@
   <ItemGroup>
     <PackageReference Include="Blazor.ContextMenu" Version="2.1.0" />
     <PackageReference Include="Humanizer.Core.pt-BR" Version="3.0.1" />
+    <PackageReference Include="SRenerCq" Version="26.1.17" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Athena.Domain\Athena.Domain.csproj" />
     <ProjectReference Include="..\Athena.Application\Athena.Application.csproj" />
-    <ProjectReference Include="..\..\..\SRenerCqs\SRenerCq\SRenerCq.csproj" />
-    <ProjectReference Include="..\Athena.Ioc\Athena.IoC.csproj" />
+    <ProjectReference Include="..\Athena.IoC\Athena.IoC.csproj" />
   </ItemGroup>
 
 </Project>

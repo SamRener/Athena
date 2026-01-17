@@ -35,8 +35,6 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-#if DEBUG
-await app.UseDevelopmentAthena();
-#endif
+await app.UseAthena();
 
 app.Run();

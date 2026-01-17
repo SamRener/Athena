@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: Postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  athena:
+    build:
+      context: ./
+      dockerfile: ./src/dockerfile
+    ports: 
+      - "8080:8080"
+  

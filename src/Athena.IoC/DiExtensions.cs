@@ -23,7 +23,7 @@ public static class DiExtensions
 
     extension(IHost host)
     {
-        public async Task<IHost> UseDevelopmentAthena()
+        public async Task<IHost> UseAthena()
         {
             using (var scope = host.Services.CreateScope())
             {

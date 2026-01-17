@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SRenerCq" Version="26.1.17" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Athena.Domain\Athena.Domain.csproj" />
-    <ProjectReference Include="..\..\..\SRenerCqs\SRenerCq\SRenerCq.csproj" />
   </ItemGroup>
 
 </Project>
